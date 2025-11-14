@@ -386,19 +386,30 @@
         }
 
         @media (max-width: 768px) {
-            /* Hide right logo on mobile */
-            .right-logo {
-                display: none;
+            /* Keep all logos visible on mobile, just make them smaller */
+            .logo-small {
+                height: 50px;  /* Smaller on mobile */
             }
 
-            /* Hide extra logo on left in mobile */
-            .left-logo .logo-small {
-                display: none;
-            }
-
-            /* Reset nav for mobile */
+            /* Adjust nav padding for mobile */
             nav {
                 position: relative;
+                padding: 0 1rem;
+            }
+
+            /* Make left logo section more compact */
+            .left-logo {
+                gap: 0.3rem;
+            }
+
+            .logo {
+                font-size: 1.4rem;  /* Slightly smaller text */
+            }
+
+            .logo-icon {
+                width: 35px;
+                height: 35px;
+                font-size: 1.2rem;
             }
 
             .nav-links {
