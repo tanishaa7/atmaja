@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atmaja - Sharing Experience</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #6366f1;
+            --secondary-color: #8b5cf6;
+            --accent-color: #ec4899;
+            --dark-bg: #1e293b;
+            --light-bg: #f8fafc;
+            --text-dark: #1e293b;
+            --text-light: #64748b;
+            --white: #ffffff;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            overflow-x: hidden;
+        }
+
+        /* Header & Navigation */
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--white);
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        nav {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-color);
+            font-size: 1.5rem;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 1.2rem;
+            flex-wrap: wrap;
+        }
+
+        .nav-links a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-size: 0.95rem;
+        }
+
+        .nav-links a:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-2px);
+        }
+
+        .mobile-menu {
+            display: none;
+            flex-direction: column;
+            gap: 4px;
+            cursor: pointer;
+        }
+
+        .mobile-menu span {
+            width: 25px;
+            height: 3px;
+            background: var(--white);
+            border-radius: 2px;
+            transition: 0.3s;
+        }
+
+        /* Hero Section */
+        .hero {
+            margin-top: 80px;
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.9), rgba(139, 92, 246, 0.9)),
+                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><rect fill="%23f8fafc" width="1200" height="600"/><path fill="%23e2e8f0" d="M0 300L50 283C100 267 200 233 300 233C400 233 500 267 600 283C700 300 800 300 900 283C1000 267 1100 233 1150 217L1200 200V600H1150C1100 600 1000 600 900 600C800 600 700 600 600 600C500 600 400 600 300 600C200 600 100 600 50 600H0V300Z"/></svg>');
+            background-size: cover;
+            background-position: center;
+            padding: 4rem 2rem;
+            color: var(--white);
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero-subtitle {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            opacity: 0.95;
+            animation: fadeInUp 1s ease 0.2s both;
+        }
+
+        .hero-tagline {
+            font-size: 1.1rem;
+            font-style: italic;
+            opacity: 0.9;
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s ease 0.4s both;
+        }
+
+        /* Main Content */
+        .main-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 3rem;
+        }
+
+        .about-section {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary-color);
+            border-bottom: 3px solid var(--primary-color);
+            padding-bottom: 0.5rem;
+        }
+
+        .subsection-title {
+            font-size: 1.4rem;
+            color: var(--secondary-color);
+            margin-top: 1.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .resource-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .resource-item {
+            padding: 0.9rem 1rem;
+            margin-bottom: 0.9rem;
+            background: var(--light-bg);
+            border-radius: 10px;
+            border-left: 4px solid var(--primary-color);
+            transition: all 0.3s ease;
+        }
+
+        .resource-item:hover {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.08), rgba(139, 92, 246, 0.08));
+            transform: translateX(5px);
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+        }
+
+        .resource-item a {
+            color: var(--text-dark);
+            text-decoration: none;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .resource-item a:hover {
+            color: var(--primary-color);
+            text-decoration: underline;
+        }
+
+        .tag {
+            font-size: 0.8rem;
+            padding: 0.2rem 0.6rem;
+            border-radius: 999px;
+            background: rgba(99, 102, 241, 0.08);
+            color: var(--primary-color);
+            font-weight: 500;
+        }
+
+        .pdf-icon {
+            font-size: 1.1rem;
+            color: var(--accent-color);
+        }
+
+        /* Sidebar */
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .sidebar-card {
+            background: var(--white);
+            padding: 1.5rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .sidebar-title {
+            font-size: 1.3rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .book-highlight {
+            background: linear-gradient(135deg, var(--accent-color), var(--secondary-color));
+            color: var(--white);
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .book-highlight h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .book-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-top: 1rem;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+        }
+
+        .book-title a {
+            color: #ffffff;
+            text-decoration: none;
+        }
+
+        .book-title a:hover {
+            text-decoration: underline;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark-bg);
+            color: var(--white);
+            padding: 3rem 2rem 1rem;
+            margin-top: 3rem;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: var(--white);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-color);
+        }
+
+        .copyright {
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-light);
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 1200px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+                flex-direction: column;
+                padding: 1rem;
+                display: none;
+                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .mobile-menu {
+                display: flex;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+
+            .section-title {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <div class="logo">
+                <div class="logo-icon">❤️</div>
+                <span>Atmaja</span>
+            </div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="atmaja_website_redesign.html">Home</a></li>
+                <li><a href="activities.html">Activities</a></li>
+                <li><a href="procedure.html">Procedure & Regulations</a></li>
+                <li><a href="to-tell.html">To Tell - When & How</a></li>
+                <li><a href="useful-links.html">Useful Links</a></li>
+                <li><a href="in-media.html">In Media</a></li>
+                <li><a href="sharing-experience.html">Sharing Experience</a></li>
+                <li><a href="atmakatha.html">Atmakatha</a></li>
+                <li><a href="notices-events.html">Notices / Events</a></li>
+                <li><a href="photo-corner.html">Photo Corner</a></li>
+                <li><a href="join-us.html">Join Us</a></li>
+                <li><a href="contact.html">Contact Us</a></li>
+            </ul>
+            <div class="mobile-menu" id="mobileMenu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>Sharing Experience</h1>
+        <p class="hero-subtitle">Stories, insights and reflections on adoption</p>
+        <p class="hero-tagline">Voices of adoptive parents, adoptees and experts</p>
+    </section>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Main Section -->
+        <div>
+            <div class="about-section">
+                <h2 class="section-title">Resources</h2>
+
+                <!-- Videos Section -->
+                <h3 class="subsection-title">Videos</h3>
+                <ul class="resource-list">
+                    <li class="resource-item">
+                        <a href="https://www.youtube.com/watch?v=zuzzE6XVyMc">
+                            Adoption Disclosure-1 | Know Why, When and How (Video)
+                            <span class="tag">Video</span>
+                        </a>
+                    </li>
+                    <li class="resource-item">
+                        <a href="https://www.youtube.com/watch?v=WI2jCCO5phs">
+                            POSITIVE ADOPTION LANGUAGE (Video)
+                            <span class="tag">Video</span>
+                        </a>
+                    </li>
+                    <li class="resource-item">
+                        <a href="https://www.youtube.com/watch?v=fTVyc3B4Ugs">
+                            Things not to say to adoptive parents (Video)
+                            <span class="tag">Video</span>
+                        </a>
+                    </li>
+                    <li class="resource-item">
+                        <a href="https://www.youtube.com/watch?v=9V0Cd6eqg9w">
+                            5 Challenges all Adoptive Parents Face (Video)
+                            <span class="tag">Video</span>
+                        </a>
+                    </li>
+                    <li class="resource-item">
+                        <a href="https://www.youtube.com/watch?v=0U0VleyBCUY">
+                            Are you Ready for Adoption? (Video)
+                            <span class="tag">Video</span>
+                        </a>
+                    </li>
+                    <li class="resource-item">
+                        <a href="https://www.youtube.com/watch?v=U3dH70I80X0">
+                            Adoption Home Study - What to Expect (Video)
+                            <span class="tag">Video</span>
+                        </a>
+                    </li>
+                    <li class="resource-item">
+                        <a href="https://www.youtube.com/watch?v=GpzunPcXNoo">
+                            Where to Adopt (Video)
+                            <span class="tag">Video</span>
+                        </a>
+                    </li>
+                    <li class="resource-item">
+                        <a href="https://www.youtube.com/watch?v=wM2HygKSeFM">
+                            Top 5 Reasons for Adoption (Video)
+                            <span class="tag">Video</span>
+                        </a>
+                    </li>
+                    <li class="resource-item">
+                        <a href="https://www.youtube.com/watch?v=GIagInYmtLo">
+                            Myths About Adoption (Video)
+                            <span class="tag">Video</span>
+                        </a>
+                    </li>
+                    <li class="resource-item">
+                        <a href="https://www.youtube.com/watch?v=JnMy-xwMh3c">
+                            What is Adoption (Video)
+                            <span class="tag">Video</span>
+                        </a>
+                    </li>
+                    <li class="resource-item">
+                        <a href="https://www.youtube.com/watch?v=PkIxWa9re3w">
+                            Adoption: Our Life Story (Video)
+                            <span class="tag">Video</span>
+                        </a>
+                    </li>
+                    <li class="resource-item">
+                        <a href="https://www.youtube.com/playlist?list=PLsAEiTrElfdylsVfJTZ4Mjs_0C5NSrNiv">
+                            ADOPTION STORIES (Video Library)
+                            <span class="tag">Video</span>
+                        </a>
+                    </li>
+                    <li class="resource-item">
+                        <a href="https://www.youtube.com/watch?v=SocaBe0wOhg">
+                            1998 - A Love Story | ADOPTION STORY - PART 1 (Video)
+                            <span class="tag">Video</span>
+                        </a>
+                    </li>
+                    <li class="resource-item">
+                        <a href="https://www.youtube.com/watch?v=XT-7WNz6toQ">
+                            Yes, I am born from Heart | Adoptee Speaks |  (Video)
+                            <span class="tag">Video</span>
+                        </a>
+                    </li>
+
+                    <li class="resource-item">
+                        <a href="https://www.youtube.com/watch?v=WGKgrF3O1Ng">
+                            Immediate Placement at CARA (Video)
+                            <span class="tag">Video</span>
+                        </a>
+                    </li>
+                    <li class="resource-item">
+                        <a href="https://www.youtube.com/watch?v=scIuiZcdwG0">
+                            Immediate Placement – Part II (Video)
+                            <span class="tag">Video</span>
+                        </a>
+                    </li>
+                    <li class="resource-item">
+                        <a href="https://www.youtube.com/watch?v=bpRWYxjhMD4">
+                            Awareness on CHILD TRAFFICKING
+                            <span class="tag">Video</span>
+                        </a>
+                    </li>
+                </ul>
+
+                <!-- PDFs Section -->
+                <h3 class="subsection-title">Written Experiences (PDF)</h3>
+                <ul class="resource-list">
+                    <li class="resource-item">
+                        <a href="sharing_pdfs/HappyMemories-22Jun21.pdf">
+                            <span class="pdf-icon">📄</span>
+                            Happy Memories (pdf)
+                            <span class="tag">PDF</span>
+                        </a>
+                    </li>
+                    <li class="resource-item">
+                        <a href="sharing_pdfs/PeyechiPranBhore-SubirM-25Nov20.pdf">
+                            <span class="pdf-icon">📄</span>
+                            Peyechhi Pran Bhore (Bengali - pdf)
+                            <span class="tag">PDF</span>
+                        </a>
+                    </li>
+                    <li class="resource-item">
+                        <a href="sharing_pdfs/SotyereLouSohoje-SujataNandi-13Dec20.pdf">
+                            <span class="pdf-icon">📄</span>
+                            Satyere Lao Sahaje (Bengali - pdf)
+                            <span class="tag">PDF</span>
+                        </a>
+                    </li>
+                    <li class="resource-item">
+                        <a href="sharing_pdfs/Best Placed Plans.pdf">
+                            <span class="pdf-icon">📄</span>
+                            Best Placed Plans (pdf)
+                            <span class="tag">PDF</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <!-- Book Highlight -->
+            <div class="book-highlight">
+                <h3>📚 Adoption Related Book</h3>
+                <p><strong>Check This Out:</strong></p>
+                <div class="book-title">
+                    <a href="https://www.amazon.in/dp/1637147724/ref=cm_sw_r_wa_awdb_imm_t1_byXaGb70558FD" target="_blank">
+                        "Beyond Womb"<br>by Sahana Krishnamurthy
+                    </a>
+                </div>
+            </div>
+
+            <!-- Quick Links -->
+            <div class="sidebar-card">
+                <h3 class="sidebar-title">📌 Explore More</h3>
+                <p>Read our families’ stories in <a href="atmakatha.html">Atmakatha</a> or browse <a href="photo-corner.html">Photo Corner</a> for memories from our events.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="index.html">Home</a>
+                <!-- <li><a href="atmaja_website_redesign.html">Home</a></li> -->
+                <a href="activities.html">Activities</a>
+                <a href="procedure.html">Procedure & Regulations</a>
+                <a href="to-tell.html">To Tell - When & How</a>
+                <a href="useful-links.html">Useful Links</a>
+                <a href="atmakatha.html">Atmakatha</a>
+                <a href="contact.html">Contact Us</a>
+            </div>
+            <p class="copyright">
+                © 2025 Atmaja - An Association for Adoptive Parents. All rights reserved.<br>
+                Member of Indian Federation of Adoptive Families' Association
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenu = document.getElementById('mobileMenu');
+        const navLinks = document.getElementById('navLinks');
+        
+        mobileMenu.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!mobileMenu.contains(e.target) && !navLinks.contains(e.target)) {
+                navLinks.classList.remove('active');
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atmaja - Photo Corner</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #6366f1;
+            --secondary-color: #8b5cf6;
+            --accent-color: #ec4899;
+            --dark-bg: #1e293b;
+            --light-bg: #f8fafc;
+            --text-dark: #1e293b;
+            --text-light: #64748b;
+            --white: #ffffff;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            overflow-x: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--white);
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        nav {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-color);
+            font-size: 1.5rem;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 1.2rem;
+            flex-wrap: wrap;
+        }
+
+        .nav-links a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-size: 0.95rem;
+        }
+
+        .nav-links a:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-2px);
+        }
+
+        .mobile-menu {
+            display: none;
+            flex-direction: column;
+            gap: 4px;
+            cursor: pointer;
+        }
+
+        .mobile-menu span {
+            width: 25px;
+            height: 3px;
+            background: var(--white);
+            border-radius: 2px;
+            transition: 0.3s;
+        }
+
+        .hero {
+            margin-top: 80px;
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.9), rgba(139, 92, 246, 0.9)),
+                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><rect fill="%23f8fafc" width="1200" height="600"/><path fill="%23e2e8f0" d="M0 300L50 283C100 267 200 233 300 233C400 233 500 267 600 283C700 300 800 300 900 283C1000 267 1100 233 1150 217L1200 200V600H1150C1100 600 1000 600 900 600C800 600 700 600 600 600C500 600 400 600 300 600C200 600 100 600 50 600H0V300Z"/></svg>');
+            background-size: cover;
+            background-position: center;
+            padding: 4rem 2rem;
+            color: var(--white);
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .main-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 3rem;
+        }
+
+        .about-section {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+            border-bottom: 3px solid var(--primary-color);
+            padding-bottom: 0.5rem;
+        }
+
+        .sub-section-title {
+            font-size: 1.4rem;
+            color: var(--secondary-color);
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .photo-list, .video-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .photo-item, .video-item {
+            background: var(--light-bg);
+            padding: 1rem;
+            margin-bottom: 0.9rem;
+            border-radius: 10px;
+            border-left: 4px solid var(--primary-color);
+            transition: all 0.3s ease;
+        }
+
+        .photo-item:hover, .video-item:hover {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.08), rgba(139, 92, 246, 0.08));
+            transform: translateX(5px);
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+        }
+
+        .photo-item a, .video-item a {
+            color: var(--text-dark);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .photo-item a:hover, .video-item a:hover {
+            color: var(--primary-color);
+            text-decoration: underline;
+        }
+
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .book-highlight {
+            background: linear-gradient(135deg, var(--accent-color), var(--secondary-color));
+            color: var(--white);
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .book-highlight a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .book-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-top: 1rem;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+        }
+
+        footer {
+            background: var(--dark-bg);
+            color: var(--white);
+            padding: 3rem 2rem 1rem;
+            margin-top: 3rem;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: var(--white);
+            text-decoration: none;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-color);
+        }
+
+        .copyright {
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-light);
+        }
+
+        @media (max-width: 1200px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+                flex-direction: column;
+                padding: 1rem;
+                display: none;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .mobile-menu {
+                display: flex;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <div class="logo-icon">❤️</div>
+                <span>Atmaja</span>
+            </div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="atmaja_website_redesign.html">Home</a></li>
+                <li><a href="activities.html">Activities</a></li>
+                <li><a href="procedure.html">Procedure & Regulations</a></li>
+                <li><a href="to-tell.html">To Tell - When & How</a></li>
+                <li><a href="useful-links.html">Useful Links</a></li>
+                <li><a href="in-media.html">In Media</a></li>
+                <li><a href="sharing-experience.html">Sharing Experience</a></li>
+                <li><a href="atmakatha.html">Atmakatha</a></li>
+                <li><a href="notices-events.html">Notices / Events</a></li>
+                <li><a href="photo-corner.html">Photo Corner</a></li>
+                <li><a href="join-us.html">Join Us</a></li>
+                <li><a href="contact.html">Contact Us</a></li>
+            </ul>
+            <div class="mobile-menu" id="mobileMenu">
+                <span></span><span></span><span></span>
+            </div>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <h1>Photo Corner</h1>
+        <p class="hero-subtitle">Memories from our events and gatherings</p>
+        <p class="hero-tagline">Celebrating moments of love, togetherness, and support</p>
+    </section>
+
+    <div class="main-content">
+        <div>
+            <div class="about-section">
+                <h2 class="section-title">Photos</h2>
+                <ul class="photo-list">
+                    <li class="photo-item"><a href="https://photos.google.com/share/AF1QipOqhmXzg9e9vEPC3sRzBl3Qys_jzVRANWLywuny9R-rvljDPr7aLlAMjsuTsD7_rg?key=OEFVRlVDMmlsaC0wVkFaNUhzUHV2MVVnQ29OSGZR">Picnic Jan 2025</a></li>
+                    <li class="photo-item"><a href="https://photos.google.com/share/AF1QipNFupEMu-2M1UgbKOW4e8GfhVaDISU6pfhZ9MT6jWYjnccOWkZh6pcK1ENUVnFYiA?key=UFJqT0NpellNa2FXdVgxOW43aU8wWTFPTzBDZWVn">Santiniketan-Muluk Dec 2024</a></li>
+                    <li class="photo-item"><a href="https://photos.google.com/share/AF1QipM9jbS7Q5UAUXBrWuLPmLjOwA05WscuyumMmXDxBZ6zQwz1N5hgYUtuHiqjgzrgqg?key=SnFxVmd3MUZteS1yaXdnMUVyS0xiZkRONTlCQXlR">Pre-adoption Workshop March 2024</a></li>
+                    <li class="photo-item"><a href="https://photos.google.com/share/AF1QipOSXwYCAO04C1RbeNrr1ZQvjLCTSgSMAGhhI8UfgbSx1QO9HyDwrM1k42jRoyo5XQ?key=bExCRk1TLURGUzc2dU51WjhKMDc5UzRaZ2VyRlRR">Annual General Meeting 25 June 2023</a></li>
+                    <li class="photo-item"><a href="https://photos.google.com/share/AF1QipPL7bt76xxPUDX-Rx0uXd4JRuEXICZMdvVkG-WuFEq-0HgJaowc3kfleZKs_Vv26A?key=bmhQakUyR29wY1YtMWhPcXlMRXAtcDhoOElGbV93">Pre-adoption Workshop 17 June 2023</a></li>
+                    <li class="photo-item"><a href="https://photos.google.com/share/AF1QipP1f37geE_AD_pKNFLhuvHu4pzemxRtvvINE3ZlQwrPXI-Ycg2T4FQLYsku9ky84A?key=WktLaE80N1VOVUZ4STNCNml4akVmQ1FCazZzZVRB">Pre-adoption Workshop 14 May 2023</a></li>
+                    <li class="photo-item"><a href="https://photos.google.com/share/AF1QipMID_tW7RPoeZ_v_NqG-747T121wruIqV8qj7XUwh7PQImdQq_9kagGSfQt4atRAg?key=NE9ReXdGMHp3enBvTkFFWHlMX3ZISTRlMnJZZ2Jn">Pre-adoption Workshop 6 May 2023</a></li>
+                    <li class="photo-item"><a href="https://photos.google.com/share/AF1QipNzU082b5U_gv14XlK03plNVKTpUa2mOF2sM848s442zawf-g0nGf7NKeLyWYF_Tg?key=UmZTTGJPcE1DOElNR0JhQmVlb244NlR4NFBwandn">Picnic 2023</a></li>
+                    <li class="photo-item"><a href="https://photos.google.com/share/AF1QipMuqjsfLUuwfcenqyJssqckcHs8izuqeHGEkUYitdBXfm5GjjsWZDhaZW9Y1Q0bNQ?key=SmpkcmVFVFVZQk8zVHRwamVsR0xHazZUU2JWbTVB">Pre-adoption Workshop Feb 2023</a></li>
+                    <li class="photo-item"><a href="https://photos.google.com/share/AF1QipNpxc3lyygRcHA8NEk4oJlFBGUQavDIAxedxVsbElrzQJc53jbE9af12DboP9g3wA?key=c2hqVmdQTmh3b1EyckZNMjkza1l3My1DNnRpcERn">Pre-adoption Workshop Nov 2022</a></li>
+                    <li class="photo-item"><a href="https://photos.google.com/share/AF1QipNJYjZt_xOMgO3KlMAzogdEawfjQv3gJNL--pXVg--8tGxQxuUYtgBBzOcHcUBOuA?key=VEt2N1EwZmp1ME9vNDV1TVRjWWVnNzUxZUlPNmd3">Pre-adoption Workshop Sept 2022</a></li>
+                    <li class="photo-item"><a href="https://photos.google.com/share/AF1QipNWItsGqpSGgCb-OYhFwvqRj2xZz4Otnl1zFT8U0Zx0kYJLWMabfBcIzROUEcIqiw?key=YkloWDdQekhLWUhRcnpTeTJtQWNEcUhiTG5tMDdn">Pre-adoption Workshop July 2022</a></li>
+                    <li class="photo-item"><a href="https://photos.google.com/share/AF1QipMfqNwcy84VOjdmlM1eHj06P7yoytFRqZLHRKqesmaOwkatKjSzOCVpUCIN252rUQ?key=M1lMT3RIZy1yN0JKZ2JMWGU2SzJZWlF2M2kxNGFB">Adoptive Parents Meet at Guwahati (with SARA)</a></li>
+                    <li class="photo-item"><a href="#">Pre-adoption Workshop June 2022</a></li>
+                    <li class="photo-item"><a href="#">Pre-adoption Workshop Apr 2022</a></li>
+                    <li class="photo-item"><a href="#">Pre-adoption Workshop Feb 2022</a></li>
+                    <li class="photo-item"><a href="#">Pre-adoption Workshop Dec 2021</a></li>
+                    <li class="photo-item"><a href="#">Atmaja 20th Year Celebration</a></li>
+                    <li class="photo-item"><a href="#">Adoptive Parents and Adoptees Meet, Jan 2020</a></li>
+                    <li class="photo-item"><a href="#">Pre-adoption Workshop 2020</a></li>
+                    <li class="photo-item"><a href="#">Picnic 2020</a></li>
+                    <li class="photo-item"><a href="#">Picnic 2019</a></li>
+                    <li class="photo-item"><a href="#">Picnic 2017</a></li>
+                    <li class="photo-item"><a href="#">Purulia 2017</a></li>
+                    <li class="photo-item"><a href="#">Mython 2013</a></li>
+                    <li class="photo-item"><a href="#">Taki 2012</a></li>
+                    <li class="photo-item"><a href="#">Ranchi 2011</a></li>
+                    <li class="photo-item"><a href="#">Picnic 2011</a></li>
+                    <li class="photo-item"><a href="#">10th Anniversary Function</a></li>
+                    <li class="photo-item"><a href="#">Chandipur 2010</a></li>
+                    <li class="photo-item"><a href="#">Picnic 2010</a></li>
+                    <li class="photo-item"><a href="#">Workshop 2009</a></li>
+                    <li class="photo-item"><a href="#">Bishnupur 2009</a></li>
+                    <li class="photo-item"><a href="#">Picnic 2009</a></li>
+                    <li class="photo-item"><a href="#">Trip to Salboni 2008</a></li>
+                    <li class="photo-item"><a href="#">Picnic 2008</a></li>
+                    <li class="photo-item"><a href="#">Workshop 2007</a></li>
+                    <li class="photo-item"><a href="#">Victoria Memorial 2007</a></li>
+                    <li class="photo-item"><a href="#">Rabindra Nazrul Jayanti 2007</a></li>
+                    <li class="photo-item"><a href="#">Picnic 2007</a></li>
+                    <li class="photo-item"><a href="#">Picnic 2006</a></li>
+                </ul>
+
+                <h2 class="sub-section-title">Videos</h2>
+                <ul class="video-list">
+                    <li class="video-item"><a href="#">20th Year Celebration - In-house Dance Drama</a></li>
+                    <li class="video-item"><a href="#">20th Year Celebration - In-house Cultural Program</a></li>
+                    <li class="video-item"><a href="#">20th Year Celebration - Panel Discussion</a></li>
+                    <li class="video-item"><a href="#">20th Year Celebration - Inauguration</a></li>
+                    <li class="video-item"><a href="#">Pre-adoption Workshop 2020</a></li>
+                    <li class="video-item"><a href="#">Purulia Tour</a></li>
+                    <li class="video-item"><a href="#">Salboni #1</a></li>
+                    <li class="video-item"><a href="#">Salboni #2</a></li>
+                    <li class="video-item"><a href="#">Salboni #3</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="sidebar">
+            <div class="book-highlight">
+                <h3>📚 Adoption Related Book</h3>
+                <p><strong>Check This Out:</strong></p>
+                <div class="book-title">
+                    <a href="https://www.amazon.in/dp/1637147724/ref=cm_sw_r_wa_awdb_imm_t1_byXaGb70558FD" 
+                    target="_blank" 
+                    style="color: #ffffff; text-decoration: none;">
+                        "Beyond Womb"<br>by Sahana Krishnamurthy
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="index.html">Home</a>
+                <!-- <li><a href="atmaja_website_redesign.html">Home</a></li> -->
+                <a href="activities.html">Activities</a>
+                <a href="procedure.html">Procedure & Regulations</a>
+                <a href="to-tell.html">To Tell - When & How</a>
+                <a href="useful-links.html">Useful Links</a>
+                <a href="atmakatha.html">Atmakatha</a>
+                <a href="contact.html">Contact Us</a>
+            </div>
+            <p class="copyright">
+                © 2025 Atmaja - An Association for Adoptive Parents. All rights reserved.<br>
+                Member of Indian Federation of Adoptive Families' Association
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        const mobileMenu = document.getElementById('mobileMenu');
+        const navLinks = document.getElementById('navLinks');
+        mobileMenu.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+        document.addEventListener('click', (e) => {
+            if (!mobileMenu.contains(e.target) && !navLinks.contains(e.target)) {
+                navLinks.classList.remove('active');
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atmaja - In Media</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #6366f1;
+            --secondary-color: #8b5cf6;
+            --accent-color: #ec4899;
+            --dark-bg: #1e293b;
+            --light-bg: #f8fafc;
+            --text-dark: #1e293b;
+            --text-light: #64748b;
+            --white: #ffffff;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            overflow-x: hidden;
+        }
+
+        /* Header & Navigation */
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--white);
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        nav {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-color);
+            font-size: 1.5rem;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 1.2rem;
+            flex-wrap: wrap;
+        }
+
+        .nav-links a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-size: 0.95rem;
+        }
+
+        .nav-links a:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-2px);
+        }
+
+        .mobile-menu {
+            display: none;
+            flex-direction: column;
+            gap: 4px;
+            cursor: pointer;
+        }
+
+        .mobile-menu span {
+            width: 25px;
+            height: 3px;
+            background: var(--white);
+            border-radius: 2px;
+            transition: 0.3s;
+        }
+
+        /* Hero Section */
+        .hero {
+            margin-top: 80px;
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.9), rgba(139, 92, 246, 0.9)),
+                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><rect fill="%23f8fafc" width="1200" height="600"/><path fill="%23e2e8f0" d="M0 300L50 283C100 267 200 233 300 233C400 233 500 267 600 283C700 300 800 300 900 283C1000 267 1100 233 1150 217L1200 200V600H1150C1100 600 1000 600 900 600C800 600 700 600 600 600C500 600 400 600 300 600C200 600 100 600 50 600H0V300Z"/></svg>');
+            background-size: cover;
+            background-position: center;
+            padding: 4rem 2rem;
+            color: var(--white);
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero-subtitle {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            opacity: 0.95;
+            animation: fadeInUp 1s ease 0.2s both;
+        }
+
+        .hero-tagline {
+            font-size: 1.1rem;
+            font-style: italic;
+            opacity: 0.9;
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s ease 0.4s both;
+        }
+
+        /* Main Content */
+        .main-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 3rem;
+        }
+
+        .about-section {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary-color);
+            border-bottom: 3px solid var(--primary-color);
+            padding-bottom: 0.5rem;
+        }
+
+        .media-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .media-item {
+            background: var(--light-bg);
+            margin-bottom: 1rem;
+            padding: 1rem;
+            border-radius: 10px;
+            border-left: 4px solid var(--primary-color);
+            transition: all 0.3s ease;
+        }
+
+        .media-item:hover {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(139, 92, 246, 0.1));
+            transform: translateX(5px);
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+        }
+
+        .media-item a {
+            text-decoration: none;
+            color: var(--primary-color);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .media-item a::before {
+            content: "🎬";
+            font-size: 1.1rem;
+        }
+
+        .media-item a:hover {
+            text-decoration: underline;
+        }
+
+        /* Sidebar
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .sidebar-card {
+            background: var(--white);
+            padding: 1.5rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .sidebar-title {
+            font-size: 1.3rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .book-highlight {
+            background: linear-gradient(135deg, var(--accent-color), var(--secondary-color));
+            color: var(--white);
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .book-highlight h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .book-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-top: 1rem;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+        } */
+         /* Sidebar */
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .sidebar-card {
+            background: var(--white);
+            padding: 1.5rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .sidebar-title {
+            font-size: 1.3rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .book-highlight {
+            background: linear-gradient(135deg, var(--accent-color), var(--secondary-color));
+            color: var(--white);
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .book-highlight h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .book-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-top: 1rem;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+        }
+
+        .event-list, .notice-list {
+            list-style: none;
+        }
+
+        .event-item, .notice-item {
+            padding: 0.8rem;
+            margin-bottom: 0.8rem;
+            background: var(--light-bg);
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            border-left: 3px solid var(--primary-color);
+        }
+
+        .event-item:hover, .notice-item:hover {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(139, 92, 246, 0.1));
+            transform: translateX(5px);
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .event-item a, .notice-item a {
+            color: var(--text-dark);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 500;
+        }
+
+        .event-item a::before {
+            content: '📅';
+            font-size: 1.2rem;
+        }
+
+        .notice-item a::before {
+            content: '📄';
+            font-size: 1.2rem;
+        }
+
+        .event-item a:hover, .notice-item a:hover {
+            color: var(--primary-color);
+        }
+
+        .pdf-icon {
+            color: var(--accent-color);
+            font-size: 0.9rem;
+            margin-left: auto;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark-bg);
+            color: var(--white);
+            padding: 3rem 2rem 1rem;
+            margin-top: 3rem;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: var(--white);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-color);
+        }
+
+        .copyright {
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-light);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 1200px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+                flex-direction: column;
+                padding: 1rem;
+                display: none;
+                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .mobile-menu {
+                display: flex;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <div class="logo">
+                <div class="logo-icon">❤️</div>
+                <span>Atmaja</span>
+            </div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="activities.html">Activities</a></li>
+                <li><a href="procedure.html">Procedure & Regulations</a></li>
+                <li><a href="to-tell.html">To Tell - When & How</a></li>
+                <li><a href="useful-links.html">Useful Links</a></li>
+                <li><a href="in-media.html">In Media</a></li>
+                <li><a href="sharing-experience.html">Sharing Experience</a></li>
+                <li><a href="atmakatha.html">Atmakatha</a></li>
+                <li><a href="notices-events.html">Notices / Events</a></li>
+                <li><a href="photo-corner.html">Photo Corner</a></li>
+                <li><a href="join-us.html">Join Us</a></li>
+                <li><a href="contact.html">Contact Us</a></li>
+            </ul>
+            <div class="mobile-menu" id="mobileMenu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>In Media</h1>
+        <p class="hero-subtitle">Atmaja in Print and TV Media</p>
+        <p class="hero-tagline">Featuring our efforts and stories in national and regional media</p>
+    </section>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div>
+            <div class="about-section">
+                <h2 class="section-title">Atmaja in Print and TV Media</h2>
+                <ul class="media-list">
+                    <li class="media-item">
+                        <a href="https://www.youtube.com/watch?v=Y6F-iMR7ng4" target="_blank">Pragna – Panel Discussion on Disclosure, Dec 2021</a>
+                    </li>
+                    <li class="media-item">
+                        <a href="https://www.youtube.com/watch?v=Qzajs_OJuEA" target="_blank">Pragna – Panel Discussion on Why Adoption, Dec 2021</a>
+                    </li>
+                    <li class="media-item">
+                        <a href="https://www.atmaja.org.in/docs/VID-20170607-4.mp4" target="_blank">NewsTime TV – Barie Dao Tomar Hath - IV, May 2017</a>
+                    </li>
+                    <li class="media-item">
+                        <a href="https://www.atmaja.org.in/docs/VID-20170607-3.mp4" target="_blank">NewsTime TV – Barie Dao Tomar Hath - III, May 2017</a>
+                    </li>
+                    <li class="media-item">
+                        <a href="https://www.atmaja.org.in/docs/VID-20170607-2.mp4" target="_blank">NewsTime TV – Barie Dao Tomar Hath - II, May 2017</a>
+                    </li>
+                    <li class="media-item">
+                        <a href="https://www.atmaja.org.in/docs/VID-20170605-1.mp4" target="_blank">NewsTime TV – Barie Dao Tomar Hath - I, May 2017</a>
+                    </li>
+                    <li class="media-item">
+                        <a href="#" target="_blank">BBC News, September 2006</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Sidebar
+        <div class="sidebar">
+            <div class="book-highlight">
+                <h3>📚 Adoption Related Book</h3>
+                <p><strong>Check This Out:</strong></p>
+                <div class="book-title">"Beyond Womb"<br>by Sahana Krishnamurthy</div>
+            </div>
+
+            <div class="sidebar-card">
+                <h3 class="sidebar-title">🎉 Recent Events</h3>
+                <ul>
+                    <li class="media-item"><a href="pdfs/pre-adoption-workshop-july-2022.pdf" target="_blank">Pre-Adoption Workshop (July 2022)</a></li>
+                    <li class="media-item"><a href="pdfs/adoptive-parents-meet-guwahati-july-2022.pdf" target="_blank">Adoptive Parents Meet at Guwahati (July 2022)</a></li>
+                </ul>
+            </div>
+        </div>
+    </div> -->
+
+    <!-- Sidebar -->
+        <div class="sidebar">
+            <!-- Book Highlight
+            <div class="book-highlight">
+                <h3>📚 Adoption Related Book</h3>
+                <p><strong>Check This Out:</strong></p>
+                <div class="book-title">"Beyond Womb"<br>by Sahana Krishnamurthy</div>
+            </div> -->
+            <!-- Book Highlight -->
+            <div class="book-highlight">
+                <h3>📚 Adoption Related Book</h3>
+                <p><strong>Check This Out:</strong></p>
+                <div class="book-title">
+                    <a href="https://www.amazon.in/dp/1637147724/ref=cm_sw_r_wa_awdb_imm_t1_byXaGb70558FD" 
+                    target="_blank" 
+                    style="color: #ffffff; text-decoration: none;">
+                        "Beyond Womb"<br>by Sahana Krishnamurthy
+                    </a>
+                </div>
+            </div>
+
+            <!-- Recent Events -->
+            <div class="sidebar-card">
+                <h3 class="sidebar-title">🎉 Recent Events</h3>
+                <ul class="event-list">
+                    <li class="event-item">
+                        <a href="pdfs/pre-adoption-workshop-july-2022.pdf" target="_blank">
+                            Pre-Adoption Workshop (July 2022)
+                            <span class="pdf-icon">PDF</span>
+                        </a>
+                    </li>
+                    <li class="event-item">
+                        <a href="pdfs/adoptive-parents-meet-guwahati-july-2022.pdf" target="_blank">
+                            Adoptive Parents Meet at Guwahati (July 2022)
+                            <span class="pdf-icon">PDF</span>
+                        </a>
+                    </li>
+                    <li class="event-item">
+                        <a href="pdfs/pre-adoption-workshop-june-2022.pdf" target="_blank">
+                            Pre-Adoption Workshop (June 2022)
+                            <span class="pdf-icon">PDF</span>
+                        </a>
+                    </li>
+                    <li class="event-item">
+                        <a href="pdfs/pre-adoption-workshop-april-2022.pdf" target="_blank">
+                            Pre-Adoption Workshop (April 2022)
+                            <span class="pdf-icon">PDF</span>
+                        </a>
+                    </li>
+                    <li class="event-item">
+                        <a href="pdfs/atmaja-20th-year-celebration-report.pdf" target="_blank">
+                            Atmaja 20th Year Celebration - Report
+                            <span class="pdf-icon">PDF</span>
+                        </a>
+                    </li>
+                    <li class="event-item">
+                        <a href="pdfs/pre-adoption-workshop-feb-2022.pdf" target="_blank">
+                            Pre-Adoption Workshop (Feb 2022)
+                            <span class="pdf-icon">PDF</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Recent Notices -->
+            <div class="sidebar-card">
+                <h3 class="sidebar-title">📢 Recent Notices</h3>
+                <ul class="notice-list">
+                    <li class="notice-item">
+                        <a href="pdfs/25th-year-celebration-invitation-card.pdf" target="_blank">
+                            25th Year Celebration Invitation Card
+                            <span class="pdf-icon">PDF</span>
+                        </a>
+                    </li>
+                    <li class="notice-item">
+                        <a href="pdfs/25th-year-celebration-invitation-letter.pdf" target="_blank">
+                            25th Year Celebration Invitation Letter
+                            <span class="pdf-icon">PDF</span>
+                        </a>
+                    </li>
+                    <li class="notice-item">
+                        <a href="pdfs/notice-24th-agm.pdf" target="_blank">
+                            Notice for 24th AGM
+                            <span class="pdf-icon">PDF</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="index.html">Home</a>
+                <!-- <li><a href="atmaja_website_redesign.html">Home</a></li> -->
+                <a href="activities.html">Activities</a>
+                <a href="procedure.html">Procedure & Regulations</a>
+                <a href="to-tell.html">To Tell - When & How</a>
+                <a href="useful-links.html">Useful Links</a>
+                <a href="atmakatha.html">Atmakatha</a>
+                <a href="contact.html">Contact Us</a>
+            </div>
+            <p class="copyright">
+                © 2025 Atmaja - An Association for Adoptive Parents. All rights reserved.<br>
+                Member of Indian Federation of Adoptive Families' Association
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        const mobileMenu = document.getElementById('mobileMenu');
+        const navLinks = document.getElementById('navLinks');
+        mobileMenu.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+        document.addEventListener('click', (e) => {
+            if (!mobileMenu.contains(e.target) && !navLinks.contains(e.target)) {
+                navLinks.classList.remove('active');
+            }
+        });
+    </script>
+</body>
+</html>

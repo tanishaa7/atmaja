@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atmaja - Notices / Events</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #6366f1;
+            --secondary-color: #8b5cf6;
+            --accent-color: #ec4899;
+            --dark-bg: #1e293b;
+            --light-bg: #f8fafc;
+            --text-dark: #1e293b;
+            --text-light: #64748b;
+            --white: #ffffff;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            overflow-x: hidden;
+        }
+
+        /* Header & Navigation */
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--white);
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        nav {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-color);
+            font-size: 1.5rem;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 1.2rem;
+            flex-wrap: wrap;
+        }
+
+        .nav-links a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-size: 0.95rem;
+        }
+
+        .nav-links a:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-2px);
+        }
+
+        .mobile-menu {
+            display: none;
+            flex-direction: column;
+            gap: 4px;
+            cursor: pointer;
+        }
+
+        .mobile-menu span {
+            width: 25px;
+            height: 3px;
+            background: var(--white);
+            border-radius: 2px;
+            transition: 0.3s;
+        }
+
+        /* Hero Section */
+        .hero {
+            margin-top: 80px;
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.9), rgba(139, 92, 246, 0.9)),
+                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><rect fill="%23f8fafc" width="1200" height="600"/><path fill="%23e2e8f0" d="M0 300L50 283C100 267 200 233 300 233C400 233 500 267 600 283C700 300 800 300 900 283C1000 267 1100 233 1150 217L1200 200V600H1150C1100 600 1000 600 900 600C800 600 700 600 600 600C500 600 400 600 300 600C200 600 100 600 50 600H0V300Z"/></svg>');
+            background-size: cover;
+            background-position: center;
+            padding: 4rem 2rem;
+            color: var(--white);
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero-subtitle {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            opacity: 0.95;
+            animation: fadeInUp 1s ease 0.2s both;
+        }
+
+        .hero-tagline {
+            font-size: 1.1rem;
+            font-style: italic;
+            opacity: 0.9;
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s ease 0.4s both;
+        }
+
+        /* Main Content */
+        .main-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 3rem;
+        }
+
+        .about-section {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary-color);
+            border-bottom: 3px solid var(--primary-color);
+            padding-bottom: 0.5rem;
+        }
+
+        .notice-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .notice-item {
+            padding: 0.9rem 1rem;
+            margin-bottom: 0.9rem;
+            background: var(--light-bg);
+            border-radius: 10px;
+            border-left: 4px solid var(--primary-color);
+            transition: all 0.3s ease;
+        }
+
+        .notice-item:hover {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.08), rgba(139, 92, 246, 0.08));
+            transform: translateX(5px);
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+        }
+
+        .notice-item a {
+            color: var(--text-dark);
+            text-decoration: none;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .notice-item a::before {
+            content: "📄";
+            font-size: 1.1rem;
+        }
+
+        .notice-item a span.pdf-icon {
+            margin-left: auto;
+            font-size: 0.85rem;
+            color: var(--accent-color);
+            font-weight: 600;
+        }
+
+        .notice-item a:hover {
+            color: var(--primary-color);
+        }
+
+        /* Sidebar */
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .sidebar-card {
+            background: var(--white);
+            padding: 1.5rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .sidebar-title {
+            font-size: 1.3rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .book-highlight {
+            background: linear-gradient(135deg, var(--accent-color), var(--secondary-color));
+            color: var(--white);
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .book-highlight h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .book-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-top: 1rem;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark-bg);
+            color: var(--white);
+            padding: 3rem 2rem 1rem;
+            margin-top: 3rem;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: var(--white);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-color);
+        }
+
+        .copyright {
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-light);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 1200px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+                flex-direction: column;
+                padding: 1rem;
+                display: none;
+                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .mobile-menu {
+                display: flex;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+
+            .section-title {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <div class="logo">
+                <div class="logo-icon">❤️</div>
+                <span>Atmaja</span>
+            </div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="atmaja_website_redesign.html">Home</a></li>
+                <li><a href="activities.html">Activities</a></li>
+                <li><a href="procedure.html">Procedure & Regulations</a></li>
+                <li><a href="to-tell.html">To Tell - When & How</a></li>
+                <li><a href="useful-links.html">Useful Links</a></li>
+                <li><a href="in-media.html">In Media</a></li>
+                <li><a href="sharing-experience.html">Sharing Experience</a></li>
+                <li><a href="atmakatha.html">Atmakatha</a></li>
+                <li><a href="notices-events.html">Notices / Events</a></li>
+                <li><a href="photo-corner.html">Photo Corner</a></li>
+                <li><a href="join-us.html">Join Us</a></li>
+                <li><a href="contact.html">Contact Us</a></li>
+            </ul>
+            <div class="mobile-menu" id="mobileMenu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div> 
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>Notices / Events</h1>
+        <p class="hero-subtitle">Announcements, workshops, celebrations and gatherings</p>
+        <p class="hero-tagline">A timeline of Atmaja’s community activities and official notices</p>
+    </section>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Main Section -->
+        <div>
+            <div class="about-section">
+                <h2 class="section-title">Notices and Events (PDF)</h2>
+                <ul class="notice-list">
+                    <li class="notice-item">
+                        <a href="notice_pdfs/25th-year-celebration-invitation-card.pdf" target="_blank">
+                            25th Year Celebration Invitation Card
+                            <span class="pdf-icon">PDF</span>
+                        </a>
+                    </li>
+                    <li class="notice-item">
+                        <a href="notice_pdfs/25th-year-celebration-invitation-letter.pdf" target="_blank">
+                            25th year Celebration Invitation Letter
+                            <span class="pdf-icon">PDF</span>
+                        </a>
+                    </li>
+                    <li class="notice-item">
+                        <a href="notice_pdfs/notice-24th-agm.pdf" target="_blank">
+                            Notice for 24th AGM
+                            <span class="pdf-icon">PDF</span>
+                        </a>
+                    </li>
+                    <li class="notice-item">
+                        <a href="notice_pdfs/notice-23rd-agm.pdf" target="_blank">
+                            Notice for 23rd AGM
+                            <span class="pdf-icon">PDF</span>
+                        </a>
+                    </li>
+                    <li class="notice-item">
+                        <a href="notice_pdfs/pre-adoption-workshop-july-2022.pdf" target="_blank">
+                            Pre-Adoption Workshop (July 2022)
+                            <span class="pdf-icon">PDF</span>
+                        </a>
+                    </li>
+                    <li class="notice-item">
+                        <a href="notice_pdfs/adoptive-parents-meet-guwahati-july-2022.pdf" target="_blank">
+                            Adoptive Parents Meet at Guwahati (July 2022)
+                            <span class="pdf-icon">PDF</span>
+                        </a>
+                    </li>
+                    <li class="notice-item">
+                        <a href="notice_pdfs/pre-adoption-workshop-june-2022.pdf" target="_blank">
+                            Pre-Adoption Workshop (June 2022)
+                            <span class="pdf-icon">PDF</span>
+                        </a>
+                    </li>
+                    <li class="notice-item">
+                        <a href="notice_pdfs/notice-22nd-agm.pdf" target="_blank">
+                            Notice for 22nd AGM
+                            <span class="pdf-icon">PDF</span>
+                        </a>
+                    </li>
+                    <li class="notice-item">
+                        <a href="notice_pdfs/pre-adoption-workshop-april-2022.pdf" target="_blank">
+                            Pre-Adoption Workshop (April 2022)
+                            <span class="pdf-icon">PDF</span>
+                        </a>
+                    </li>
+                    <li class="notice-item">
+                        <a href="notice_pdfs/invitation-card-20th-year-celebration.pdf" target="_blank">
+                            Invitation Card for 20th Year Celebration
+                            <span class="pdf-icon">PDF</span>
+                        </a>
+                    </li>
+                    <li class="notice-item">
+                        <a href="notice_pdfs/notice-20th-year-celebration.pdf" target="_blank">
+                            Notice for 20th Year Celebration
+                            <span class="pdf-icon">PDF</span>
+                        </a>
+                    </li>
+                    <li class="notice-item">
+                        <a href="notice_pdfs/pre-adoption-workshop-feb-2022.pdf" target="_blank">
+                            Pre-Adoption Workshop (Feb 2022)
+                            <span class="pdf-icon">PDF</span>
+                        </a>
+                    </li>
+                    <li class="notice-item">
+                        <a href="notice_pdfs/pre-adoption-workshop-dec-2021.pdf" target="_blank">
+                            Pre-Adoption Workshop (Dec 2021)
+                            <span class="pdf-icon">PDF</span>
+                        </a>
+                    </li>
+                    <li class="notice-item">
+                        <a href="notice_pdfs/pre-adoption-workshop-aug-2021.pdf" target="_blank">
+                            Pre-adoption Workshop(Aug 2021)
+                            <span class="pdf-icon">PDF</span>
+                        </a>
+                    </li>
+                    <li class="notice-item">
+                        <a href="notice_pdfs/rabindra-nazrul-evening-june-2021.pdf" target="_blank">
+                            Rabindra-Nazrul Evening (June 2021)
+                            <span class="pdf-icon">PDF</span>
+                        </a>
+                    </li>
+                    <li class="notice-item">
+                        <a href="notice_pdfs/agm-2021-notice.pdf" target="_blank">
+                            AGM 2021 Notice
+                            <span class="pdf-icon">PDF</span>
+                        </a>
+                    </li>
+
+                    <li class="notice-item">
+                        <a href="notice_pdfs/vijaya-diwali-sammilani-nov-2020.pdf" target="_blank">
+                            Vijaya-Diwali Sammilani  (Nov 2020)
+                            <span class="pdf-icon">PDF</span>
+                        </a>
+                    </li>
+                    <li class="notice-item">
+                        <a href="notice_pdfs/agm-2020-notice.pdf" target="_blank">
+                            AGM 2020 Notice
+                            <span class="pdf-icon">PDF</span>
+                        </a>
+                    </li>
+                    <li class="notice-item">
+                        <a href="notice_pdfs/rabindra-nazrul-evening-aug-2020.pdf" target="_blank">
+                            Rabindra-Nazrul Evening (Aug 2020)
+                            <span class="pdf-icon">PDF</span>
+                        </a>
+                    </li>
+                    <li class="notice-item">
+                        <a href="notice_pdfs/pre-adoption-workshop-march-2020.pdf" target="_blank">
+                            Pre-adoption Workshop (March 2020)
+                            <span class="pdf-icon">PDF</span>
+                        </a>
+                    </li>
+                    <li class="notice-item">
+                        <a href="notice_pdfs/adoptive-parents-adoptees-meet-jan-2020.pdf" target="_blank">
+                            Adoptive Parents and Adoptees Meet (Jan 2020)
+                            <span class="pdf-icon">PDF</span>
+                        </a>
+                    </li>
+                    <li class="notice-item">
+                        <a href="notice_pdfs/picnic-january-2020.pdf" target="_blank">
+                            Picnic (January 2020)
+                            <span class="pdf-icon">PDF</span>
+                        </a>
+                    </li>
+
+                    <li class="notice-item">
+                        <a href="notice_pdfs/vijaya-diwali-sammilani-nov-2019.pdf" target="_blank">
+                            Vijaya and Diwali Sammilani  (November 2019)
+                            <span class="pdf-icon">PDF</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <!-- Book Highlight -->
+            <div class="book-highlight">
+                <h3>📚 Adoption Related Book</h3>
+                <p><strong>Check This Out:</strong></p>
+                <div class="book-title">
+                    <a href="https://www.amazon.in/dp/1637147724/ref=cm_sw_r_wa_awdb_imm_t1_byXaGb70558FD" 
+                    target="_blank" 
+                    style="color: #ffffff; text-decoration: none;">
+                        "Beyond Womb"<br>by Sahana Krishnamurthy
+                    </a>
+                </div>
+            </div>
+
+            <!-- Simple sidebar card, you can customize later -->
+            <div class="sidebar-card">
+                <h3 class="sidebar-title">📌 Quick Links</h3>
+                <p>Browse our <a href="atmakatha.html">Atmakatha</a> issues and learn more about our <a href="activities.html">Activities</a> and <a href="procedure.html">Procedure & Regulations</a>.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="index.html">Home</a>
+                <!-- <li><a href="atmaja_website_redesign.html">Home</a></li> -->
+                <a href="activities.html">Activities</a>
+                <a href="procedure.html">Procedure & Regulations</a>
+                <a href="to-tell.html">To Tell - When & How</a>
+                <a href="useful-links.html">Useful Links</a>
+                <a href="atmakatha.html">Atmakatha</a>
+                <a href="contact.html">Contact Us</a>
+            </div>
+            <p class="copyright">
+                © 2025 Atmaja - An Association for Adoptive Parents. All rights reserved.<br>
+                Member of Indian Federation of Adoptive Families' Association
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenu = document.getElementById('mobileMenu');
+        const navLinks = document.getElementById('navLinks');
+        
+        mobileMenu.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!mobileMenu.contains(e.target) && !navLinks.contains(e.target)) {
+                navLinks.classList.remove('active');
+            }
+        });
+    </script>
+</body>
+</html>
