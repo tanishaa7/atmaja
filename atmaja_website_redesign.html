@@ -48,6 +48,14 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            gap: 1rem;
+        }
+
+        /* Left logo area */
+        .left-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
 
         .logo {
@@ -70,11 +78,31 @@
             font-size: 1.5rem;
         }
 
-        .nav-links {
+        /* Right logo area */
+        .right-logo {
             display: flex;
+            align-items: center;
+        }
+
+        /* Smaller logos */
+        .logo-small {
+            height: 70px;
+            width: auto;
+            margin-left: 0.3rem;
+            margin-right: 0.3rem;
+            object-fit: contain;
+            border-radius: 3px;
+            transition: transform 0.3s ease;
+        }
+
+        /* Center the nav links */
+        .nav-links {
+            flex: 1;
+            display: flex;
+            justify-content: center;
             list-style: none;
-            gap: 1.2rem;
             flex-wrap: wrap;
+            gap: 1rem;
         }
 
         .nav-links a {
@@ -189,6 +217,18 @@
             font-size: 1.1rem;
         }
 
+        .about-image {
+            margin-top: 2rem;
+            text-align: center;
+        }
+
+        .about-image img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+
         /* Sidebar */
         .sidebar {
             display: flex;
@@ -233,6 +273,11 @@
             padding: 1rem;
             background: rgba(255, 255, 255, 0.2);
             border-radius: 10px;
+        }
+
+        .book-title a {
+            color: #ffffff;
+            text-decoration: none;
         }
 
         .event-list, .notice-list {
@@ -341,6 +386,21 @@
         }
 
         @media (max-width: 768px) {
+            /* Hide right logo on mobile */
+            .right-logo {
+                display: none;
+            }
+
+            /* Hide extra logo on left in mobile */
+            .left-logo .logo-small {
+                display: none;
+            }
+
+            /* Reset nav for mobile */
+            nav {
+                position: relative;
+            }
+
             .nav-links {
                 position: absolute;
                 top: 100%;
@@ -351,6 +411,7 @@
                 padding: 1rem;
                 display: none;
                 box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+                flex: none;
             }
 
             .nav-links.active {
@@ -373,48 +434,6 @@
                 font-size: 1.5rem;
             }
         }
-        /* Make navigation 3-part layout */
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        /* Left logo area */
-        .left-logo {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        /* Right logo area */
-        .right-logo {
-            display: flex;
-            align-items: center;
-        }
-
-        /* Smaller logos */
-        .logo-small {
-            height: 70px;        /* increased from 40px → bigger */
-            width: auto;
-            margin-left: 0.3rem;
-            margin-right: 0.3rem;
-            object-fit: contain;
-            border-radius: 3px;  /* slightly softer corners */
-            transition: transform 0.3s ease;
-        }
-
-        /* Center the nav links */
-        .nav-links {
-            flex: 1;
-            display: flex;
-            justify-content: center;
-            list-style: none;
-            flex-wrap: wrap;
-            gap: 1rem;
-        }
-
     </style>
 </head>
 <body>
@@ -430,7 +449,6 @@
 
             <!-- Center navigation links -->
             <ul class="nav-links" id="navLinks">
-                <!-- <li><a href="atmaja_website_redesign.html">Home</a></li> -->
                 <li><a href="index.html">Home</a></li>
                 <li><a href="activities.html">Activities</a></li>
                 <li><a href="procedure.html">Procedure & Regulations</a></li>
@@ -512,7 +530,7 @@
                             Organizing family events and celebrations
                         </li>
                     </ul>
-                    <!-- Image section -->
+                    
                     <div class="about-image">
                         <img src="mainpa3.jpg" alt="Atmaja Community" />
                     </div>
@@ -522,20 +540,13 @@
 
         <!-- Sidebar -->
         <div class="sidebar">
-            <!-- Book Highlight
-            <div class="book-highlight">
-                <h3>📚 Adoption Related Book</h3>
-                <p><strong>Check This Out:</strong></p>
-                <div class="book-title">"Beyond Womb"<br>by Sahana Krishnamurthy</div>
-            </div> -->
             <!-- Book Highlight -->
             <div class="book-highlight">
                 <h3>📚 Adoption Related Book</h3>
                 <p><strong>Check This Out:</strong></p>
                 <div class="book-title">
                     <a href="https://www.amazon.in/dp/1637147724/ref=cm_sw_r_wa_awdb_imm_t1_byXaGb70558FD" 
-                    target="_blank" 
-                    style="color: #ffffff; text-decoration: none;">
+                    target="_blank">
                         "Beyond Womb"<br>by Sahana Krishnamurthy
                     </a>
                 </div>
@@ -616,7 +627,6 @@
         <div class="footer-content">
             <div class="footer-links">
                 <a href="index.html">Home</a>
-                <!-- <li><a href="atmaja_website_redesign.html">Home</a></li> -->
                 <a href="activities.html">Activities</a>
                 <a href="procedure.html">Procedure & Regulations</a>
                 <a href="to-tell.html">To Tell - When & How</a>
@@ -631,7 +641,7 @@
         </div>
     </footer>
 
-    <script>
+    <script> 
         // Mobile menu toggle
         const mobileMenu = document.getElementById('mobileMenu');
         const navLinks = document.getElementById('navLinks');
