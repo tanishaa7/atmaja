@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Atmaja - Contact Us</title>
+    <!-- Font Awesome (for Facebook/YouTube icons) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
     <style>
         * {
             margin: 0;
@@ -301,6 +304,43 @@
             border-top: 1px solid rgba(255, 255, 255, 0.1);
             color: var(--text-light);
         }
+        /* NEW: Footer Social Icons */
+        .footer-social {
+            margin: 0.5rem 0 1.5rem;
+            display: flex;
+            justify-content: center;
+            gap: 18px;
+        }
+
+        .footer-social a {
+            color: var(--white);
+            font-size: 20px;
+            width: 40px;
+            height: 40px;
+            border-radius: 999px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.12);
+            transition: transform 0.25s ease, background 0.25s ease, color 0.25s ease;
+            text-decoration: none;
+        }
+
+        .footer-social a:hover {
+            transform: translateY(-2px) scale(1.05);
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .footer-social a:focus-visible {
+            outline: 2px solid var(--accent-color);
+            outline-offset: 3px;
+        }
+
+        .copyright {
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-light);
+        }
 
         @keyframes fadeInUp {
             from {
@@ -438,9 +478,23 @@
                 <p><strong>Check This Out:</strong></p>
                 <div class="book-title">
                     <a href="https://www.amazon.in/dp/1637147724/ref=cm_sw_r_wa_awdb_imm_t1_byXaGb70558FD" 
-                    target="_blank" 
+                    target="_blank"
                     style="color: #ffffff; text-decoration: none;">
                         "Beyond Womb"<br>by Sahana Krishnamurthy
+                    </a>
+                </div>
+                <div class="book-title">
+                    <a href="https://www.amazon.in/Ours-Choice-Parenting-Through-Adoption/dp/B005C1ITLE" 
+                    target="_blank"
+                    style="color: #ffffff; text-decoration: none;">
+                        "Ours by Choice"<br>by Nilima Mehta
+                    </a>
+                </div>
+                <div class="book-title">
+                    <a href="https://www.amazon.in/Name-Cinnamon-Vikas-Prakash-Joshi/dp/9394613188" 
+                    target="_blank"
+                    style="color: #ffffff; text-decoration: none;">
+                        "My Name Is Cinnamon"<br>by Vikas Prakash Joshi
                     </a>
                 </div>
             </div>
@@ -458,7 +512,6 @@
         <div class="footer-content">
             <div class="footer-links">
                 <a href="index.html">Home</a>
-                <!-- <li><a href="atmaja_website_redesign.html">Home</a></li> -->
                 <a href="activities.html">Activities</a>
                 <a href="procedure.html">Procedure & Regulations</a>
                 <a href="to-tell.html">To Tell - When & How</a>
@@ -466,9 +519,19 @@
                 <a href="atmakatha.html">Atmakatha</a>
                 <a href="contact.html">Contact Us</a>
             </div>
+
+            <!-- NEW: Social icons -->
+            <div class="footer-social">
+                <a href="https://www.facebook.com/YOUR_PAGE_LINK" target="_blank" aria-label="Facebook">
+                    <i class="fa-brands fa-facebook-f"></i>
+                </a>
+                <a href="https://www.youtube.com/@YOUR_CHANNEL_LINK" target="_blank" aria-label="YouTube">
+                    <i class="fa-brands fa-youtube"></i>
+                </a>
+            </div>
+
             <p class="copyright">
                 © 2025 Atmaja - An Association for Adoptive Parents. All rights reserved.<br>
-                Member of Indian Federation of Adoptive Families' Association
             </p>
         </div>
     </footer>
